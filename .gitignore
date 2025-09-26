@@ -1,0 +1,17 @@
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+*.tmp
+*~
+
+# Arquivos do VSCode (permitimos as configurações específicas)
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# Arquivos de backup
+*.bak
+*.orig
+
+# Logs gerais
+*.log

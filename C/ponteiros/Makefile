@@ -2,31 +2,56 @@
 # Compilador e flags específicas para ponteiros
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -g -O0 -Wpointer-arith -Wcast-align
-LDFLAGS = 
+LDFLAGS =
+
 
 # Diretórios
 SRCDIR = .
 OBJDIR = obj
 BINDIR = bin
 
-# Encontra todos os arquivos .c no diretório atual
-SOURCES = $(wildcard $(SRCDIR)/*.c)
-OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
-TARGETS = $(SOURCES:$(SRCDIR)/%.c=$(BINDIR)/%)
+# Encontra todos os arquivos .c recursivamente
+SOURCES = $(shell find $(SRCDIR) -name '*.c')
+OBJECTS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES:./%=%))
+TARGETS = $(patsubst $(SRCDIR)/%.c,$(BINDIR)/%,$(SOURCES:./%=%))
 
-# Regra padrão
+
+# Permite compilar um arquivo específico: make file=exemplo.c
+
+
+ifeq ($(file),)
 all: dirs $(TARGETS)
+else
+# Permite compilar arquivo em subpasta, ex: make file=Tema-2_Listas-e-Ordenacao/MOD1/mod1.c
+FILE_PATH = $(file)
+FILE_NAME = $(notdir $(FILE_PATH))
+FILE_BASE = $(basename $(FILE_NAME))
+FILE_OBJ = $(OBJDIR)/$(FILE_BASE).o
+FILE_BIN = $(BINDIR)/$(FILE_BASE)
+all: dirs $(FILE_BIN)
+$(FILE_BIN): $(FILE_PATH)
+	@mkdir -p $(dir $(FILE_OBJ))
+	@mkdir -p $(dir $(FILE_BIN))
+	$(CC) $(CFLAGS) -c $(FILE_PATH) -o $(FILE_OBJ)
+	$(CC) $(LDFLAGS) $(FILE_OBJ) -o $(FILE_BIN)
+endif
 
 # Cria diretórios necessários
 dirs:
 	@mkdir -p $(OBJDIR) $(BINDIR)
 
-# Regra para compilar objetos
+
+
+# Regra para compilar objetos de arquivos em subpastas
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Regra para criar executáveis
+
+
+# Regra para criar executáveis de objetos em subpastas
 $(BINDIR)/%: $(OBJDIR)/%.o
+	@mkdir -p $(dir $@)
 	$(CC) $(LDFLAGS) $< -o $@
 
 # Limpa arquivos compilados

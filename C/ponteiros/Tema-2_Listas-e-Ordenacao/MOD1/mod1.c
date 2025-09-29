@@ -242,6 +242,7 @@ void cadastrarItensMochilaMagica(struct listaMochila** inicio, int *totalItens){
       printf("Item '%s' adicionado com sucesso na mochila mágica!\n", item);
     }
   } while (strlen(item) > 0);
+
 }
 
 /**

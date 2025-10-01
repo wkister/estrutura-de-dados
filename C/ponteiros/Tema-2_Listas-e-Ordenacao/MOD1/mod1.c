@@ -31,8 +31,8 @@ void listarItens(Mochila mochila);
 
 // -- Protótipos das Funções para lista dinâmica ---
 void cadastrarItensMochilaMagica(struct listaMochila** inicio, int *totalItens);
-// void removerItemMochilaMagica(struct mochilaMagica** inicio, const char* item, int *totalItens);
-// void listarItensMochilaMagica(struct mochilaMagida* inicio, int totalItens);
+void removerItemInicioMochilaMagica(struct listaMochila** inicio, const char* item, int *totalItens);
+void listarItensMochilaMagica(struct listaMochila* inicio, int totalItens);
 
 
 // --- Função Principal ---
@@ -50,7 +50,7 @@ int main(){
     printf("Erro na alocação de memória.\n");
     return 1;
   }
-  mochilaMagica->proximo = NULL; // Inicializa o próximo como NULL
+  // mochilaMagica->proximo = NULL; // Inicializa o próximo como NULL
 
   // Variável para armazenar a opção do menu
   int opcao = 0;
@@ -83,12 +83,12 @@ int main(){
         break;
       }
       // case 5: {
-      //   removerItemMochilaMagica(&mochilaMagica, &totalItensMochilaMagica);
+      //   removerItemInicioMochilaMagica(&mochilaMagica, &totalItensMochilaMagica);
       //   break;
       // }
-      // case 6:
-      //   listarItensMochilaMagica(mochilaMagica, totalItensMochilaMagica);
-      //   break;
+      case 6:
+        listarItensMochilaMagica(mochilaMagica, totalItensMochilaMagica);
+        break;
       case 0:
         printf("Liberando memória da mochila mágica...\n");
         free(mochilaMagica);
@@ -205,43 +205,55 @@ void removerItens(Mochila *mochila, char item[TAM_STRING]){
  * @param item Nome do item a ser adicionado
  */
 void cadastrarItensMochilaMagica(struct listaMochila** inicio, int *totalItens){
-  // Loop para adicionar itens, parando quando entrar um item vazio
   char item[TAM_STRING];
-  do {
-    // Solicitar o nome do item
-    printf("Digite o nome do item a ser adicionado na mochila mágica (ou pressione Enter para sair): ");
-    fgets(item, TAM_STRING, stdin);
-    // Remover o caractere de nova linha, se presente
-    item[strcspn(item, "\n")] = 0;
-    // Verificar se o item não está vazio
-    if (strlen(item) > 0){
-      // Criar um novo nó
-      struct listaMochila* novoNo = (struct listaMochila*) malloc(sizeof(struct listaMochila));
-      if (novoNo == NULL){
-        printf("Erro na alocação de memória.\n");
-        return;
-      }
-      strcpy(novoNo->item, item);
-      novoNo->proximo = NULL;
+  if (*totalItens >= MAX_ITENS){
+    printf("A mochila mágica está cheia. Não é possível adicionar mais itens.\n");
+  } else {
+    // Loop para adicionar itens, parando quando entrar um item vazio
+    do {
+      // Solicitar o nome do item
+      printf("Digite o nome do item a ser adicionado na mochila mágica (ou pressione Enter para sair): ");
+      fgets(item, TAM_STRING, stdin);
+      // Remover o caractere de nova linha, se presente
+      item[strcspn(item, "\n")] = 0;
+      // Verificar se o item não está vazio
+      if (strlen(item) > 0){
+        // Se for o primeiro item, adicionar diretamente em inicio
+        if (*totalItens == 0){
+          strcpy((*inicio)->item, item);
+          (*totalItens)++;
+          printf("Item '%s' adicionado com sucesso na mochila mágica!\n", item);
+          continue; // Pular para a próxima iteração do loop
+        } else {
+          // Criar um novo nó
+          struct listaMochila* novoNo = (struct listaMochila*) malloc(sizeof(struct listaMochila));
+          if (novoNo == NULL){
+            printf("Erro na alocação de memória.\n");
+            return;
+          }
+          strcpy(novoNo->item, item);
+          novoNo->proximo = NULL;
 
-      // Inserir o novo nó na lista ordenada
-      if (*inicio == NULL || strcmp((*inicio)->item, item) > 0){
-        // Inserir no início
-        novoNo->proximo = *inicio;
-        *inicio = novoNo;
-      } else {
-        // Inserir em outra posição
-        struct listaMochila* atual = *inicio;
-        while (atual->proximo != NULL && strcmp(atual->proximo->item, item) < 0){
-          atual = atual->proximo;
+          // Inserir o novo nó na lista ordenada
+          if (*inicio == NULL || strcmp((*inicio)->item, item) > 0){
+            // Inserir no início
+            novoNo->proximo = *inicio;
+            *inicio = novoNo;
+          } else {
+            // Inserir em outra posição
+            struct listaMochila* atual = *inicio;
+            while (atual->proximo != NULL && strcmp(atual->proximo->item, item) < 0){
+              atual = atual->proximo;
+            }
+            novoNo->proximo = atual->proximo;
+            atual->proximo = novoNo;
+          }
+          (*totalItens)++;
+          printf("Item '%s' adicionado com sucesso na mochila mágica!\n", item);
         }
-        novoNo->proximo = atual->proximo;
-        atual->proximo = novoNo;
       }
-      (*totalItens)++;
-      printf("Item '%s' adicionado com sucesso na mochila mágica!\n", item);
-    }
-  } while (strlen(item) > 0);
+    } while (strlen(item) > 0);
+  }
 
 }
 
@@ -250,14 +262,24 @@ void cadastrarItensMochilaMagica(struct listaMochila** inicio, int *totalItens){
  * @param inicio Ponteiro duplo para o início da lista
  * @param item Nome do item a ser removido
  */
-// void removerItemMochilaMagica(struct mochilaMagica** inicio, const char* item, int *totalItens){
-
-// }
+void removerItemInicioMochilaMagica(struct listaMochila** inicio, const char* item, int *totalItens){
+  struct listaMochila* atual = *inicio;
+  *inicio = (*inicio)->proximo;
+  free(atual);
+  (*totalItens)--;
+}
 
 /**
  * @brief Função para listar os itens da mochila mágica (lista dinâmica)
  * @param inicio Ponteiro para o início da lista
  */
-// void listarItensMochilaMagica(struct mochilaMagida* inicio, int totalItens){
-
-// }
+void listarItensMochilaMagica(struct listaMochila* inicio, int totalItens){
+  struct listaMochila *atual = inicio;
+  int indice = 1;
+  printf("\nItens na mochila mágica:\n");
+  while (atual != NULL){
+    printf("%d. %s\n", indice, atual->item);
+    atual = atual->proximo;
+    indice++;
+  }
+}

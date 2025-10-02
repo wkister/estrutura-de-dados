@@ -15,6 +15,9 @@ SOURCES = $(shell find $(SRCDIR) -name '*.c')
 OBJECTS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SOURCES:./%=%))
 TARGETS = $(patsubst $(SRCDIR)/%.c,$(BINDIR)/%,$(SOURCES:./%=%))
 
+# Adicione o caminho para funcoes.c
+FUNCOES_SRC = funcoes.c
+FUNCOES_OBJ = $(OBJDIR)/funcoes.o
 
 # Permite compilar um arquivo específico: make file=exemplo.c
 
@@ -29,18 +32,21 @@ FILE_BASE = $(basename $(FILE_NAME))
 FILE_OBJ = $(OBJDIR)/$(FILE_BASE).o
 FILE_BIN = $(BINDIR)/$(FILE_BASE)
 all: dirs $(FILE_BIN)
-$(FILE_BIN): $(FILE_PATH)
+$(FILE_BIN): $(FILE_PATH) $(FUNCOES_OBJ)
 	@mkdir -p $(dir $(FILE_OBJ))
 	@mkdir -p $(dir $(FILE_BIN))
 	$(CC) $(CFLAGS) -c $(FILE_PATH) -o $(FILE_OBJ)
-	$(CC) $(LDFLAGS) $(FILE_OBJ) -o $(FILE_BIN)
+	$(CC) $(LDFLAGS) $(FILE_OBJ) $(FUNCOES_OBJ) -o $(FILE_BIN)
 endif
+
+# Compila funcoes.c em obj/funcoes.o
+$(FUNCOES_OBJ): $(FUNCOES_SRC)
+    @mkdir -p $(dir $@)
+    $(CC) $(CFLAGS) -c $< -o $@
 
 # Cria diretórios necessários
 dirs:
 	@mkdir -p $(OBJDIR) $(BINDIR)
-
-
 
 # Regra para compilar objetos de arquivos em subpastas
 $(OBJDIR)/%.o: $(SRCDIR)/%.c

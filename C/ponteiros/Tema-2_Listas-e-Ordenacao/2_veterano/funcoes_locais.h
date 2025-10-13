@@ -25,8 +25,11 @@ void cadastrarJogadoresVetor(Jogador *jogadoresVetor);
 void removerJogadorVetor();
 void listarJogadoresVetor();
 void visualizarRankingVetor();
-void buscarJogador_sequencialVetor();
-void buscarJogador_binariaVetor();
+void buscarJogadorSequencialIterativaVetor();
+void buscarJogadorSequencialIterativaLista();
+void buscarJogadorSequencialRecursivaVetor();
+void buscarJogadorSequencialRecursivaLista();
+void buscarJogadorBinariaVetor();
 void testeEntreOrdenadoresVetor();
 
 // Para lista

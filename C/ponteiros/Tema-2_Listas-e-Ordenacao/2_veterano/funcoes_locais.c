@@ -81,12 +81,26 @@ void visualizarRankingLista(){
 /**
  * @brief Função para buscar um jogador usando busca sequencial
  */
-void buscarJogador_sequencialVetor(){
+void buscarJogador_sequencial_iterativa_Vetor(){
   printf("\n-----------------------------\n");
   printf("--- Busca Sequencial de Jogador (Vetor) ---\n");
   printf("-----------------------------\n");
 }
-void buscarJogador_sequencialLista(){
+void buscarJogadorSequencialIterativaLista(){
+  printf("\n-----------------------------\n");
+  printf("--- Busca Sequencial de Jogador (Lista) ---\n");
+  printf("-----------------------------\n");
+}
+
+/**
+ * @brief Função para buscar um jogador usando busca recursiva
+ */
+void buscarJogadorSequencialRecursivaVetor(){
+  printf("\n-----------------------------\n");
+  printf("--- Busca Sequencial de Jogador (Vetor) ---\n");
+  printf("-----------------------------\n");
+}
+void buscarJogadorSequencialRecursivaLista(){
   printf("\n-----------------------------\n");
   printf("--- Busca Sequencial de Jogador (Lista) ---\n");
   printf("-----------------------------\n");

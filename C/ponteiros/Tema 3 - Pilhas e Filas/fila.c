@@ -38,25 +38,25 @@ void mostrarFila(Fila* fila);
 // Função principal
 int main(){
   Fila f;
-    inicializarFila(&f);  // Inicializa a fila
+  inicializarFila(&f);  // Inicializa a fila
 
-    // Insere algumas pessoas na fila
-    Pessoa p1 = {"João", 25};
-    Pessoa p2 = {"Maria", 30};
-    inserir(&f, p1);
-    inserir(&f, p2);
+  // Insere algumas pessoas na fila
+  Pessoa p1 = {"João", 25};
+  Pessoa p2 = {"Maria", 30};
+  inserir(&f, p1);
+  inserir(&f, p2);
 
-    mostrarFila(&f);  // Mostra a fila antes da remoção
+  mostrarFila(&f);  // Mostra a fila antes da remoção
 
-    // Remove uma pessoa da fila
-    Pessoa removida;
-    remover(&f, &removida);  // Aqui usamos a função de remoção
+  // Remove uma pessoa da fila
+  Pessoa removida;
+  remover(&f, &removida);  // Aqui usamos a função de remoção
 
-    printf("Pessoa removida: [%s, %d]\n", removida.nome, removida.idade);
+  printf("Pessoa removida: [%s, %d]\n", removida.nome, removida.idade);
 
-    mostrarFila(&f);  // Mostra a fila após a remoção
+  mostrarFila(&f);  // Mostra a fila após a remoção
 
-    return 0;
+  return 0;
 }
 
 // Funções da fila

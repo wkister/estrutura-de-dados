@@ -1,0 +1,34 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    // Configurações Python
+    {
+      "name": "Python: Current File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    },
+
+    // Configurações C/C++
+    {
+      "name": "C/C++: Makefile build and debug binário",
+      "type": "cppdbg",
+      "request": "launch",
+      "program": "${fileDirname}/bin/${fileBasenameNoExtension}",
+      "stopAtEntry": false,
+      "cwd": "${fileDirname}",
+      "externalConsole": false,
+      "MIMode": "gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        }
+      ],
+      "preLaunchTask": "Build C Project",
+      "miDebuggerPath": "/usr/bin/gdb"
+    }
+  ]
+}

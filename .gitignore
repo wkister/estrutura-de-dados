@@ -1,20 +1,24 @@
-# Arquivos do sistema
-.DS_Store
-Thumbs.db
-*.tmp
+# Arquivos compilados específicos de ponteiros
+*.o
+*.obj
+*.exe
+*.out
+
+# Diretórios de build locais
+obj/
+bin/
+
+# Arquivos de debug/valgrind
+*.dSYM/
+vgcore.*
+massif.out.*
+callgrind.out.*
+
+# Arquivos temporários
 *~
+*.tmp
+*.swp
+*.swo
 
-# Arquivos do VSCode (permitimos as configurações específicas)
-.vscode/settings.json
-.vscode/launch.json
-.vscode/extensions.json
-
-# Arquivos de backup
-*.bak
-*.orig
-
-# Logs gerais
-*.log
-C/ponteiros/Tema 3 - Pilhas e Filas/filas-e-pilhas
-C/ponteiros/Tema 3 - Pilhas e Filas/pilha
-C/ponteiros/Tema 3 - Pilhas e Filas/reversao-de-fila
+# Arquivos específicos do AddressSanitizer
+*.asan_symbolizer_cache

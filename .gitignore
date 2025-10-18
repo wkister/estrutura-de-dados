@@ -22,5 +22,7 @@ callgrind.out.*
 
 # Arquivos específicos do AddressSanitizer
 *.asan_symbolizer_cache
+Tema 3 - Pilhas e Filas/fila
+Tema 3 - Pilhas e Filas/filas-e-pilhas
 Tema 4 - Algoritmos Avançados/arvore_trie
 Tema 4 - Algoritmos Avançados/arvore

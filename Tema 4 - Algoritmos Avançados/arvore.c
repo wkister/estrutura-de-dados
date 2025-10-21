@@ -20,11 +20,18 @@ typedef struct No {
   struct No *direita;
 } No;
 
+// Definição da estrutura de um nó de uma lista encadeada
+typedef struct ListaNo {
+  char valor[50];
+  struct ListaNo* proximo;
+} ListaNo;
+
 // Protótipos das funções
 No* criarNo(const char* valor);
 int altura(No* raiz);
 int profundidade(No* raiz, No* alvo, int nivel);
 void preOrdem(No* raiz);
+struct listaNo* arvoreParaListaEncadeada(const struct No* raiz);
 void emOrdem(No* raiz);
 void posOrdem(No* raiz);
 void liberar(No* raiz);
@@ -131,6 +138,28 @@ void preOrdem(No* raiz) {
     preOrdem(raiz->esquerda);
     preOrdem(raiz->direita);
   }
+}
+
+/**
+ * @brief Função para converter uma árvore binária em uma lista encadeada
+ * @param raiz Ponteiro para a raiz da árvore binária
+ * @return Ponteiro para a cabeça da lista encadeada
+ */
+struct listaNo* arvoreParaListaEncadeada(const struct No* raiz) {
+  // Definição da lista encadeada
+  struct listaNo* lista = NULL;
+
+  if (raiz != NULL) {
+    arvoreParaListaEncadeada(raiz->esquerda);
+    // Adiciona o valor do nó atual à lista encadeada
+    struct listaNo* novoNo = (struct listaNo*) malloc(sizeof(struct listaNo));
+    strcpy(novoNo->valor, raiz->valor);
+    novoNo->proximo = lista;
+    lista = novoNo;
+    arvoreParaListaEncadeada(raiz->direita);
+  }
+
+  return lista;
 }
 
 /**

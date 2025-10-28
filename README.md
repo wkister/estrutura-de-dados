@@ -1,21 +1,24 @@
-# estrutura-de-dados
-Repositório para compartilhar códigos da disciplina de Estrutura de Dados
+# DGT1335 - Estrutura de Dados
+
+Repositório da disciplina de Estrutura de Dados do curso de Ciência da Computação da Estácio.
 
 ## 📁 Estrutura do Repositório
 
-Este repositório está organizado por linguagens de programação, cada uma com sua própria estrutura de pastas e ferramentas de build:
+O repositório está organizado da seguinte forma:
 
 ```
 estrutura-de-dados/
 ├── .vscode/              # Configurações do VSCode
 │   ├── c_cpp_properties.json
 │   └── tasks.json
-└── C/                    # Linguagem C
-    ├── Makefile          # Build automation para C
-    ├── .gitignore        # Ignorar arquivos específicos de C
-    └── ponteiros/        # Exemplos de ponteiros
-        ├── Makefile      # Build específico para ponteiros
-        └── .gitignore    # Ignorar arquivos de ponteiros
+├── aulas/               # Material teórico e exemplos das aulas
+├── avaliacoes/         # Avaliações e trabalhos
+├── desafios/           # Desafios de programação
+└── exercicios/         # Exercícios práticos
+    ├── Makefile        # Build automation
+    ├── exemplo_basico.c
+    └── ponteiros/      # Exemplos de ponteiros
+
 ```
 
 ## 🛠️ Como Usar
@@ -28,23 +31,13 @@ estrutura-de-dados/
 
 ### Compilação
 
-#### Para projetos em C:
+#### Para compilar exercícios:
 ```bash
-cd C/
-make all                 # Compila todos os arquivos .c no diretório
-make run                 # Compila e executa todos os programas
-make clean              # Limpa arquivos compilados
-make all-recursive      # Compila todos os subdiretórios
-```
-
-#### Para exemplos de ponteiros:
-```bash
-cd C/ponteiros/
-make all                # Compila exemplos de ponteiros
-make run                # Executa todos os programas
-make valgrind           # Executa com verificação de memória
-make debug              # Compila com AddressSanitizer
-make clean              # Limpa arquivos compilados
+cd exercicios/
+make all                # Compila todos os arquivos .c no diretório
+make run               # Compila e executa todos os programas
+make clean             # Limpa arquivos compilados
+make all-recursive     # Compila todos os subdiretórios incluindo ponteiros/
 ```
 
 ### Usando no VSCode
@@ -63,21 +56,42 @@ Este repositório está configurado para trabalhar perfeitamente com o VSCode (t
 
 ## 📚 Organização do Código
 
-- **C/**: Contém exemplos gerais em C
-- **C/ponteiros/**: Exemplos específicos sobre ponteiros, alocação de memória, etc.
+- **aulas/**: Material teórico, slides e exemplos das aulas
+- **avaliacoes/**: Provas, trabalhos e projetos avaliativos
+- **desafios/**: Desafios de programação para prática extra
+- **exercicios/**: Exercícios práticos, incluindo:
+  - Exemplos básicos em C
+  - Ponteiros e alocação de memória
+  - Implementações de estruturas de dados
+  
+## 🔧 Funcionalidades do Makefile
 
-Cada diretório tem seu próprio Makefile otimizado para o tipo de código que contém.
-
-## 🔧 Funcionalidades dos Makefiles
-
-### Makefile Principal (C/)
+### Makefile dos Exercícios
 - Compilação automática de todos os .c no diretório
 - Organização em diretórios obj/ e bin/
 - Compilação recursiva de subdiretórios
-- Flags de compilação: `-Wall -Wextra -std=c99 -g -O0`
+- Flags de compilação padrão: `-Wall -Wextra -std=c99 -g -O0`
+- Flags adicionais para ponteiros quando necessário
+- Suporte para Valgrind e debug com AddressSanitizer
 
-### Makefile de Ponteiros (C/ponteiros/)
-- Flags adicionais para ponteiros: `-Wpointer-arith -Wcast-align`
-- Suporte para Valgrind (detecção de vazamentos de memória)
-- Modo debug com AddressSanitizer
-- Verificações específicas para trabalho com memória
+## 📝 Tópicos da Disciplina
+
+1. Introdução e Conceitos Básicos
+   - Tipos abstratos de dados
+   - Análise de complexidade
+   - Ponteiros e alocação de memória
+
+2. Estruturas de Dados Básicas
+   - Arrays e strings
+   - Listas encadeadas
+   - Pilhas e filas
+
+3. Estruturas de Dados Avançadas
+   - Árvores
+   - Tabelas hash
+   - Grafos
+
+4. Algoritmos de Ordenação e Busca
+   - Bubble Sort, Selection Sort, Insertion Sort
+   - Quick Sort, Merge Sort
+   - Busca linear e binária

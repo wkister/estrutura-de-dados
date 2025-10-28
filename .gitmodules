@@ -1,0 +1,12 @@
+[submodule "desafios/detective-quest-wkister"]
+	path = desafios/detective-quest-wkister
+	url = https://github.com/EstruturaDados/detective-quest-wkister.git
+[submodule "desafios/free-fire-wkister"]
+	path = desafios/free-fire-wkister
+	url = https://github.com/EstruturaDados/free-fire-wkister.git
+[submodule "desafios/tetris-wkister"]
+	path = desafios/tetris-wkister
+	url = https://github.com/EstruturaDados/tetris-wkister.git
+[submodule "desafios/war-wkister"]
+	path = desafios/war-wkister
+	url = https://github.com/EstruturaDados/war-wkister.git
